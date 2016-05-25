@@ -1,0 +1,35 @@
+* {
+	font-family: Tahoma;
+}
+h1 {
+	font-size: 60px;
+	font-weight: bold;
+	color: #1e72a2;
+	margin-bottom: 40px;
+	text-align: center;
+}
+#all_photos {
+	width: 95%;
+	height: 400px;
+}
+#rotating-item-wrapper{
+	position: absolute;
+	left: 13%;
+}
+#rotating-item-wrapper2{
+	position: absolute; 
+	left:42%;
+}
+#rotating-item-wrapper3{
+	position: absolute; 
+	left:69%;
+}
+.photo {
+	text-align: center;
+}
+table tr td {
+	font-weight: bold;
+}
+#red {
+	color: red;
+}

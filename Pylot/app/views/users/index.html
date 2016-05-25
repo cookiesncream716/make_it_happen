@@ -1,0 +1,84 @@
+<html>
+	<head>
+		<title>Login and Registration</title>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+		<!-- Personal CSS -->
+    	<link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+
+    	<style>
+    		#quote{
+    			float: right;
+    			text-align: right;
+    			margin-top: -40px;
+    		}
+    		div#quote h1{
+    			font-family: impact;
+    			color: #314c5b;
+    			font-size: 12em;
+    			margin: -60px 10px -40px 0px;
+    		}
+    	</style>
+		
+
+	</head>
+
+	<body>
+		<div id="container">
+			
+			<div class="jumbotron">
+				<h1>MAKE IT HAPPEN</h1>
+
+
+				<div id="login">
+					<h3>Login</h3>
+					<form action="/users/login" method="Post" id="login">
+						<h4>Email: <input type="text" name="email"></h4><br>
+						<h4>Password: <input type="password" name="password"></h4><br>
+						<br>
+						<button type="submit" class="btn btn-success">Login</button>
+					</form>
+					{% with message = get_flashed_messages() %}
+						{% if message: %}
+							{% for x in message: %}
+								<p id="red">{{x}}</p>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
+				</div>
+
+	 			<div id="register">
+					<h3>Registration</h3>
+			    	<form action="/users/new" method='post'>
+			    		<h4>First Name: <input type="text" name="first_name"></h4><br>
+			    		<h4>Last Name: <input type="text" name="last_name"></h4><br>
+			    		<h4>Email: <input type="text" name="new_email"></h4><br>
+			    		<h4>Password: <input type="password" name="new_password"></h4><br>
+			    		<h4>Confirm Password: <input type="password" name="confirm_pw"></h4><br>
+			    		<h4>City: <input type="text" name="city"></h4><br>
+			    		<h4>State Abbreviation: <input type="text" name="state"></h4><br>
+			    		<br>
+			    		<button type="submit" class="btn btn-success">Register</button>
+					</form>
+				</div>
+
+				<!-- quote -->
+				<div id="quote">
+					<h1>DO</h1>
+					<h1>OR DO</h1>
+					<h1>NOT</h1>
+					<h1>THERE IS</h1>
+					<h1>NO TRY</h1>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

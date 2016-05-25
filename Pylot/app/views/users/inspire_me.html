@@ -1,0 +1,143 @@
+<html>
+	<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/twitter.css"> 
+
+	<link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- Add jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="/static/js/jquery.mousewheel-3.0.6.pack.js"></script>
+
+	<!-- Add fancyBox main JS and CSS files -->
+  <!-- Not connected  -->
+	<script type="text/javascript" src="/static/js/jquery.fancybox.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="static\css\jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="/static/js/jquery.fancybox-buttons.js?v=1.0.5"></script>
+	
+  
+	<script type="text/javascript">
+				
+		 $(document).ready(function() {
+     $(".fancybox").fancybox();
+     });
+
+				
+  </script>
+
+
+	</head>
+	
+	<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <p class="navbar-brand">Make It Happen</p>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/users/profile_page">Profile Page</a></li>
+            <li><a href="/users/add_activity">Add Activity</a></li>
+            <li><a href="/users/logout"><span class="glyphicon glyphicon-log-in"></span>Log Out</a></li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h1 class="page-header">Thumbnail Gallery</h1>
+            </div>
+
+
+                {% for b in tweet: %}
+                {%for c in b['entities']['user_mentions']:%}
+            	{% for i in b['entities']['media']: %}
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+               	<p>
+               	 <a class = "fancybox" title="{{b['text']}}" rel = "group" href="{{i['media_url']}}">
+                      <img class="img-responsive" src="{{i['media_url']}}" style="width:300px; height:200px;"></a>	
+					<p class="small"><a target="_blank" href="http://{{i['display_url']}}">{{c['screen_name']}}</a></p>
+               
+
+            	</p>
+            </div>
+             {%endfor%}
+             {%endfor%}
+             {%endfor%}
+        	
+        </div>
+		<div class="row">
+			<div class="col-lg-12">
+		
+  <div class="page-header">
+    <h1 id="timeline">Timeline</h1>
+  </div>
+ 		
+
+  <ul class="timeline">
+
+    {% for index in range(0, tweet_length,2): %}
+    
+    <li >
+      <div class="timeline-badge"><i class="glyphicon glyphicon-comment"></i></div>
+      <div class="timeline-panel"style=" background-image: url({{tweet[index]['author']['profile_background_image_url_https']}}); ">
+        <div class="timeline-heading">
+          <img class="small" src="{{tweet[index]['author']['profile_image_url']}}" >
+          <h4 class="timeline-title" style="color:white">{{tweet[index]['text']}}</h4>
+          <p style="color:white">{{tweet[index]['author']['name']}}</p>
+          <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+        </div>
+        
+        <div class="timeline-body">
+         
+          <p></p>
+        </div>
+      </div>
+    </li>
+
+      {% if tweet[index + 1]: %}
+
+     <li class="timeline-inverted" >
+      <div class="timeline-badge warning"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+      <div class="timeline-panel" style=" background-image: url({{tweet[index + 1]['author']['profile_background_image_url_https']}});">
+        <div class="timeline-body">
+          <img class="small" src="{{tweet[index + 1]['author']['profile_image_url']}}" alt="">
+          <p>{{tweet[index + 1]['text']}}</p>
+          <p>{{tweet[index + 1]['author']['name']}}</p>
+           <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+        </div>
+      </div>
+    </li>
+
+    {% endif %}
+     {% endfor %}
+  </ul>
+ 
+
+
+			</div>
+		</div>
+			<h3></h3>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Make It happen 2015</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+</html>

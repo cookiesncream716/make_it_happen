@@ -1,0 +1,23 @@
+
+<table id="my_list" class="table table-striped">
+
+	{% for activity in my_activities %}
+	<tr class="strikethisnow">
+		<!-- Activity Name -->
+        <td>{{activity["activity"]}}</td>
+        <!-- Delete Button -->
+        <td>
+			<form id="delete" class="{{ activity['activity_id'] }}" action="/users/delete/{{ activity['activity_id'] }}" method="post">
+			<input type="submit" value="Delete" name="{{ activity['activity_id'] }}">
+			</form>
+		</td>
+
+        <!-- Inspire Me Button -->
+        <td>
+			<form id="inspireMe" class="" action="/users/inspire_me/{{ activity['activity_id'] }}" method="get">
+			<input type="submit" value="Inspire Me" name="inspire_me">
+			</form>
+		</td>
+	</tr>
+	{% endfor %}
+</table>

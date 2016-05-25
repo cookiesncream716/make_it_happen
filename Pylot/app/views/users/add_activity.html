@@ -1,0 +1,178 @@
+<html>
+<html>
+ 	<head>
+ 		<title>Add Activity</title>
+ 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    	<link rel="stylesheet" href="/static/css/activity_styles.css" type="text/css">
+    	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    	<script>
+    		$(window).load(function() { 
+				var InfiniteRotator ={
+				init: function(){
+				var initialFadeIn = 500;
+				var itemInterval = 2650;
+				var fadeTime = 1000;
+				var numberOfItems = $('.rotating-item').length;
+				var currentItem = 0;
+				$('.rotating-item').eq(currentItem).fadeIn(initialFadeIn);
+				var infiniteLoop = setInterval(function(){
+				$('.rotating-item').eq(currentItem).fadeOut(fadeTime);
+				if(currentItem == numberOfItems -1){
+				currentItem = 0;
+				}else{
+				currentItem++;
+				}
+				$('.rotating-item').eq(currentItem).fadeIn(fadeTime);
+				}, itemInterval);
+				}
+				};
+				var InfiniteRotator2 ={
+				init: function(){
+				var initialFadeIn = 500;
+				var itemInterval = 2750;
+				var fadeTime = 1000;
+				var numberOfItems = $('.rotating-item2').length;
+				var currentItem = 0;
+				$('.rotating-item2').eq(currentItem).fadeIn(initialFadeIn);
+				var infiniteLoop = setInterval(function(){
+				$('.rotating-item2').eq(currentItem).fadeOut(fadeTime);
+				if(currentItem == numberOfItems -1){
+				currentItem = 0;
+				}else{
+				currentItem++;
+				}
+				$('.rotating-item2').eq(currentItem).fadeIn(fadeTime);
+				}, itemInterval);
+				}
+				};
+				var InfiniteRotator3 ={
+				init: function(){
+				var initialFadeIn = 500;
+				var itemInterval = 2500;
+				var fadeTime = 1000;
+				var numberOfItems = $('.rotating-item3').length;
+				var currentItem = 0;
+				$('.rotating-item3').eq(currentItem).fadeIn(initialFadeIn);
+				var infiniteLoop = setInterval(function(){
+				$('.rotating-item3').eq(currentItem).fadeOut(fadeTime);
+				if(currentItem == numberOfItems -1){
+				currentItem = 0;
+				}else{
+				currentItem++;
+				}
+				$('.rotating-item3').eq(currentItem).fadeIn(fadeTime);
+				}, itemInterval);
+				}
+				};
+
+				InfiniteRotator.init();
+				InfiniteRotator2.init();
+				InfiniteRotator3.init();
+				}); 
+
+    		$(document).ready(function(){
+    			$(document).on("submit", "#add", function(){
+    				var num = $(this).attr("class");
+    				$.post("/users/add/" + num, $(this).serialize(), function(res){
+    					$("#activity_choices").html(res)
+    				});
+    				return false;
+    			})
+    			$(document).on("submit", "#new_activity", function(){
+    				// $(".new_activity", this).each(function(){
+    				if($(".new_activity").val()===""){
+    					alert("Activity cannot be blank");
+    					return false;
+    				};
+	    			$.post("/users/new_activity", $(this).serialize(), function(res){
+	    				$("#activity_choices").html(res)
+	    				$(".new_activity").val("");
+	    			});
+    				
+    				return false;
+    			})
+    		})
+    	</script>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse">
+			  <div class="container-fluid">
+			    <div class="navbar-header">
+			      <p class="navbar-brand">Make It Happen</p>
+			    </div>
+			    <ul class="nav navbar-nav navbar-right">
+			      <li><a href="/users/profile_page">Profile Page</a></li>
+			      <li><a href="/users/logout"><span class="glyphicon glyphicon-log-in"></span>Log Out</a></li>
+			    </ul>
+			  </div>
+		</nav>
+		<div class="container">
+			
+		<h1>Add An Activity</h1>
+		<div id="all_photos">		
+		{% for i in photos_travel %} 
+			<div id="rotating-item-wrapper" class = "photo">
+				<img class="rotating-item" src={{i}} width="300">
+			</div>	
+		{% endfor %}
+		{% for i in photos_outdoor %}
+			<div id="rotating-item-wrapper2" class = "photo">
+				<img class="rotating-item2" src={{i}} width="300">
+			</div>	
+		{% endfor %}
+		{% for i in photos_indoor %}
+			<div id="rotating-item-wrapper3" class = "photo">
+				<img class="rotating-item3" src={{i}} width="300">
+			</div>	
+		{% endfor %}
+		</div>
+			<div id="activity_choices">
+				<table class="table table-striped" >
+					<thead>
+						<tr>
+							<th>Activity</th>
+							<th>Add To My Bucket List</th>
+						</tr>
+					</thead>
+					{% for activity in activities: %}
+						<tr id="">
+							<td>{{ activity["activity"] }}</td>
+							<td><form id="add" class="{{ activity['id'] }}" action="/users/add/{{activity['id']}}" method="post">
+									<input type="submit" value="Add">
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<p>Don't see what you want, add it to the activity list.</p>
+			<p>It will automatically be inserted into your bucket list.</p>
+
+			<form id="new_activity" class="form-horizontal" role="form" action="/users/new_activity" method="Post">
+			 	<div class="form-group">
+			    	<label class="control-label col-sm-2">Activity:</label>
+			    	<div class="col-sm-4">
+			      		<input type="text" class="form-control new_activity" name="new_activity" placeholder="Enter Activity">
+			    	</div>
+			  	</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Category:</label>
+					<div class="col-sm-4">
+						<select name="category" class="col-sm-4">
+							<option>Travel</option>
+							<option>Outdoor</option>
+							<option>Indoor</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group"> 
+			    	<div class="col-sm-offset-2 col-sm-10">
+			    		<button type="submit" class="btn btn-default">Submit</button>
+			    	</div>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

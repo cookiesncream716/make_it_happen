@@ -1,0 +1,19 @@
+
+<table class="table table-striped" >
+	<thead>
+		<tr>
+			<th>Activity</td>
+			<th>Add To My Bucket List</td>
+		</tr>
+	</thead>
+	{% for activity in activities: %}
+		<tr id="">
+			<td>{{ activity["activity"] }}</td>
+			<td><form id="add" class="{{ activity['id'] }}" action="/users/add/{{activity['id']}}" method="post">
+					<input type="submit" value="Add">
+				</form>
+			</td>
+		</tr>
+	{% endfor %}
+</table>
+

@@ -1,0 +1,20 @@
+
+.container{
+	font-family: Tahoma;
+	padding: 30px;
+	background-color: white;
+}
+
+
+div.row h1{
+	color: #1e72a2;
+	margin-left: 20px;
+	font-size: 60px;
+	font-weight: bold;
+}
+div.row h3{
+	margin-left: 20px;
+}
+table tr td {
+	font-weight: bold;
+}
